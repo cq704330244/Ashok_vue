@@ -16,7 +16,7 @@ npm run build
 
 # commit code
 npm run commit
-..
+
 # run unit tests
 npm run unit
 
