@@ -1,0 +1,14 @@
+{
+  "name": "asock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "startapi":" cd ./api  && npm run start && cd ../",
+    "stopapi":" cd ./api  && npm run stop ",
+    "startprogram":"cd ./Ashok && npm run dev",
+    "start":"npm run startapi && npm run startprogram"
+  },
+  "author": "",
+  "license": "ISC"
+}
