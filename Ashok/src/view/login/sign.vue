@@ -68,7 +68,9 @@ export default {
             url: 'http://127.0.0.1:7001/login',
             data: this.ruleForm
           }).then(res => {
-            console.log(res)
+            if (res.data.success) {
+              this.$router.push({ path: '/home' })
+            }
           })
         } else {
           console.log('error submit!!')

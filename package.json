@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "startapi":" cd ./api  && npm run start && cd ../",
-    "stopapi":" cd ./api  && npm run stop ",
-    "startprogram":"cd ./Ashok && npm run dev",
-    "start":"npm run startapi && npm run startprogram"
+    "startapi": " cd ./api  && npm run start && cd ../",
+    "stopapi": " cd ./api  && npm run stop ",
+    "startprogram": "cd ./Ashok && npm run dev",
+    "start": "npm run startapi && npm run startprogram"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "vuex": "^3.3.0"
+  }
 }
