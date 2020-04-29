@@ -1,6 +1,6 @@
 const loginModules = {
   state: {
-    userInfo: 'chengqi'
+    userInfo: {}
   },
 
   mutations: {

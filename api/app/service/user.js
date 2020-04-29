@@ -7,7 +7,7 @@ class UserService extends Service {
     const result = {};
     var istrue = [false, 0];
     userInfo.map((x, index) => {
-      if (x.ruthName === userInf.name) {
+      if (x.email === userInf.name) {
         istrue[0] = true;
         istrue[1] = index;
       }

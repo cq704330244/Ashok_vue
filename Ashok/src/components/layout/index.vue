@@ -13,6 +13,7 @@
             @click="changeMenu"
           ></div>
         </div>
+        <router-view />
       </div>
     </div>
   </div>

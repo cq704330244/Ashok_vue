@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+import https from '../../utils/ajax.js'
 import { usernameReg, passwordReg } from '../.././utils/utils.js'
 export default {
   data() {
@@ -80,17 +82,16 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      storeUser: 'storeUserInfo'
+    }),
     submitForm(formName) {
+      const that = this
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$http({
-            method: 'post',
-            url: 'http://127.0.0.1:7001/login',
-            data: this.ruleForm
-          }).then(res => {
-            if (res.data.success) {
-              this.$router.push({ path: '/home' })
-            }
+          https.post('/login', this.ruleForm).then(res => {
+            that.storeUser(res.date)
+            this.$router.push({ path: '/home' })
           })
         } else {
           console.log('error submit!!')
