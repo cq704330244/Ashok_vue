@@ -33,15 +33,24 @@
 </template>
 
 <script>
+import { usernameReg, passwordReg } from '../.././utils/utils.js'
 export default {
   data() {
+    var validatename = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入用户名'))
+      } else if (usernameReg(value)) {
+        callback(new Error('请输入正确的邮箱名'))
+      } else {
+        callback()
+      }
+    }
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
+      } else if (passwordReg(value)) {
+        callback(new Error('密码：8-16位，包含大/小写字母及数字'))
       } else {
-        if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass')
-        }
         callback()
       }
     }
@@ -60,14 +69,9 @@ export default {
         pass: ''
       },
       rules: {
-        name: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }
-        ],
-        pass: [{ required: true, validator: validatePass, trigger: 'blur' }],
-        checkPass: [
-          { required: true, validator: validatePass2, trigger: 'blur' }
-        ]
+        name: [{ trigger: 'blur', validator: validatename }],
+        pass: [{ validator: validatePass, trigger: 'blur' }],
+        checkPass: [{ validator: validatePass2, trigger: 'blur' }]
       }
     }
   },

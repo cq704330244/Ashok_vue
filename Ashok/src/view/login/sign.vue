@@ -7,7 +7,11 @@
     class="sign-ruleForm"
   >
     <el-form-item label="用户名：" prop="name">
-      <el-input v-model="ruleForm.name"></el-input>
+      <el-input
+        type="test"
+        autocomplete="off"
+        v-model="ruleForm.name"
+      ></el-input>
     </el-form-item>
     <el-form-item label="密码：" prop="pass">
       <el-input
@@ -31,16 +35,25 @@
 </template>
 
 <script>
+import { usernameReg, passwordReg } from '../.././utils/utils.js'
 export default {
   data() {
     var loginSign = false
+    var validatename = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入用户名'))
+      } else if (usernameReg(value)) {
+        callback(new Error('请输入正确的邮箱名'))
+      } else {
+        callback()
+      }
+    }
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
+      } else if (passwordReg(value)) {
+        callback(new Error('密码：8-16位，包含大/小写字母及数字'))
       } else {
-        if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass')
-        }
         callback()
       }
     }
@@ -52,10 +65,17 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }
+          {
+            trigger: 'blur',
+            validator: validatename
+          }
         ],
-        pass: [{ required: true, validator: validatePass, trigger: 'blur' }]
+        pass: [
+          {
+            validator: validatePass,
+            trigger: 'blur'
+          }
+        ]
       }
     }
   },
