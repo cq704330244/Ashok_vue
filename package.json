@@ -6,6 +6,7 @@
   "scripts": {
     "startapi": " cd ./api  && npm run start && cd ../",
     "stopapi": " cd ./api  && npm run stop ",
+    "vue": " cd ./Ashok  && npm run dev ",
     "startprogram": "cd ./Ashok && npm run dev",
     "start": "npm run startapi && npm run startprogram"
   },

@@ -10,4 +10,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="less">
+@import '../style/global.less';
+</style>

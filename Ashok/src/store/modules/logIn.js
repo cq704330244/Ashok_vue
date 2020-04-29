@@ -4,8 +4,8 @@ const loginModules = {
   },
 
   mutations: {
-    increment(state) {
-      state.userInfo = 'tianshuo'
+    storeUserInfo(state, playload) {
+      state.userInfo = playload
     }
   },
 

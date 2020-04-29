@@ -1,12 +1,16 @@
 <template>
   <div>
-    home
+    <Layout />
   </div>
 </template>
 
 <script>
+import Layout from '../../components/layout'
 export default {
-  name: 'home'
+  name: 'home',
+  components: {
+    Layout
+  }
 }
 </script>
 

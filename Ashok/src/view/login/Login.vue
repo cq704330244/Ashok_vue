@@ -33,6 +33,7 @@
 <script>
 import Register from './register.vue'
 import Sign from './sign'
+import { mapMutations } from 'vuex'
 export default {
   name: 'Home',
   components: { Register, Sign },
