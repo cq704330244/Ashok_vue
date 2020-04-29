@@ -5,7 +5,7 @@
         <div class="login-logo">
           <img src="../../assets/login-logo.png" alt="" />
         </div>
-        Ashock
+        Ashok
         <div class="btngroup">
           <div
             v-for="(test, index) in msg"

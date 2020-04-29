@@ -3,7 +3,7 @@
     <div class="as-logo">
       <img src="../../assets/aslogo.png" alt="" />
     </div>
-    Ashock
+    Ashok
     <div class="as-user"></div>
   </div>
 </template>
