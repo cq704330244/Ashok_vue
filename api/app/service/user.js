@@ -3,11 +3,12 @@ const Service = require("egg").Service;
 class UserService extends Service {
   async find(userInf) {
     const { userInfo } = require("../public/userDate.js");
+    var user = JSON.parse(JSON.stringify(userInfo));
     const { ctx } = this;
     const result = {};
     var istrue = [false, 0];
     userInfo.map((x, index) => {
-      if (x.email === userInf.name) {
+      if (x.email === userInf.name && x.password === userInf.pass) {
         istrue[0] = true;
         istrue[1] = index;
       }
@@ -17,7 +18,8 @@ class UserService extends Service {
       result.success = true;
       result.status = 200;
       result.error = 0;
-      result.date = userInfo[istrue[1]];
+      delete user[istrue[1]].password;
+      result.date = user[istrue[1]];
       ctx.body = result;
     } else {
       ctx.status = 403;
