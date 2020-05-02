@@ -19,7 +19,7 @@
         v-model="ruleForm.pass"
         autocomplete="off"
         @keyup.native.enter="keyUp('ruleForm')"
-        show-password="true"
+        :show-password="bool"
       ></el-input>
     </el-form-item>
     <el-form-item>
@@ -63,6 +63,7 @@ export default {
       }
     }
     return {
+      bool: true,
       loginSign,
       ruleForm: {
         name: '',
@@ -92,10 +93,6 @@ export default {
       const that = this
       this.$refs[formName].validate(valid => {
         if (valid) {
-          userLogin(this.ruleForm).then(res => {
-            that.storeUser(res.date)
-            this.$router.push({ path: '/home' })
-          })
           userLogin(this.ruleForm)
             .then(res => {
               that.storeUser(res.date)
