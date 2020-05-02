@@ -27,8 +27,9 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import https from '../../utils/ajax.js'
+import { userLogin } from '../../api/user.js'
 import { usernameReg, passwordReg } from '../.././utils/utils.js'
+
 export default {
   data() {
     var loginSign = false
@@ -80,7 +81,7 @@ export default {
       const that = this
       this.$refs[formName].validate(valid => {
         if (valid) {
-          https.post('/login', this.ruleForm).then(res => {
+          userLogin(this.ruleForm).then(res => {
             that.storeUser(res.date)
             this.$router.push({ path: '/home' })
           })
