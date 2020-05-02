@@ -7,7 +7,11 @@
     class="sign-ruleForm"
   >
     <el-form-item label="用户名：" prop="name">
-      <el-input type="test" autocomplete="off" v-model="ruleForm.name"></el-input>
+      <el-input
+        type="test"
+        autocomplete="off"
+        v-model="ruleForm.name"
+      ></el-input>
     </el-form-item>
     <el-form-item label="密码：" prop="pass">
       <el-input
@@ -19,8 +23,15 @@
       ></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="success" @click="submitForm('ruleForm')" :disabled="loginSign">登录</el-button>
-      <el-button type="success" plain @click="resetForm('ruleForm')">重置</el-button>
+      <el-button
+        type="success"
+        @click="submitForm('ruleForm')"
+        :disabled="loginSign"
+        >登录</el-button
+      >
+      <el-button type="success" plain @click="resetForm('ruleForm')"
+        >重置</el-button
+      >
     </el-form-item>
   </el-form>
 </template>
@@ -81,14 +92,11 @@ export default {
       const that = this
       this.$refs[formName].validate(valid => {
         if (valid) {
-<<<<<<< HEAD
           userLogin(this.ruleForm).then(res => {
             that.storeUser(res.date)
             this.$router.push({ path: '/home' })
           })
-=======
-          https
-            .post('/login', this.ruleForm)
+          userLogin(this.ruleForm)
             .then(res => {
               that.storeUser(res.date)
               sessionStorage.setItem('admin', true)
@@ -97,7 +105,6 @@ export default {
             .catch(err => {
               this.$message.error(err.toString())
             })
->>>>>>> bd3226340ab04c2f6f06d624c9859c986da83c13
         } else {
           console.log('error submit!!')
           return false
