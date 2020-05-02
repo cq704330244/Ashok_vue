@@ -3,6 +3,7 @@ const userInfo = [{
     name: "音七丶",
     image: "https://himg.bdimg.com/sys/portrait/item/pp.1.7705176d.MQZC4RmNgwb4Lky_aOAO7w.jpg?tt=1587826029953",
     userId: 0001,
+    password: "Cq123456",
     email: "704330244@qq.com",
     title: "无业游民",
     group: "攻城狮",

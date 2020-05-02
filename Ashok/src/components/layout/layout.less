@@ -9,57 +9,129 @@ body {
   .el-submenu__title:hover {
     background-color: #f0ffec;
   }
-}
-.as-container {
-  display: flex;
-  flex-direction: row;
-  .as-left {
-    .as-el-menu {
-      min-height: calc(100vh - 61px);
-    }
-    .el-menu-item.is-active {
-      color: #71d358f5;
-    }
-    .el-menu-item:focus,
-    .el-menu-item:hover {
-      outline: 0;
-      background-color: #f0ffec;
-    }
-    .el-submenu__title:hover {
-      background-color: #f0ffec;
-    }
-    .el-submenu .el-submenu__title {
-      width: 150px;
-    }
-    .is-opened .el-submenu__title {
+  .layout-wrap {
+    .layout-background {
+      background: url('../../assets/blankbg.png');
+      position: fixed;
+      height: 100%;
       width: 100%;
-    }
-    .el-menu--collapse .el-submenu .el-submenu__title {
-      width: auto;
-    }
-  }
-  .as-right {
-    width: 100%;
-  }
-  .openMenu {
-    background-image: url('../../assets/unlock.png');
-  }
-  .closeMenu {
-    background-image: url('../../assets/lock.png');
-  }
-  .as-row {
-    height: 24px;
-    padding: 10px 10px;
-    border-bottom: solid 1px #eee;
-    .as-menulogo {
-      width: 4px;
-      height: 8px;
-      padding: 8px 10px;
-      background-size: 100% 100%;
-      background-position: center center;
+      top: 0;
+      min-width: 1000px;
+      z-index: -10;
+      background-position: center 0;
       background-repeat: no-repeat;
-      opacity: 0.6;
-      cursor: pointer;
+      background-size: cover;
+      zoom: 1;
+    }
+    .bgdog {
+      background: url('../../assets/blankbg.png');
+    }
+    .as-container {
+      display: flex;
+      flex-direction: row;
+      .as-left {
+        .as-el-menu {
+          min-height: calc(100vh - 61px);
+        }
+        .el-menu-item.is-active {
+          color: #71d358f5;
+        }
+        .el-menu-item:focus,
+        .el-menu-item:hover {
+          outline: 0;
+          background-color: #f0ffec;
+        }
+        .el-submenu__title:hover {
+          background-color: #f0ffec;
+        }
+        .el-submenu .el-submenu__title {
+          width: 150px;
+        }
+        .is-opened .el-submenu__title {
+          width: 100%;
+        }
+        .el-menu--collapse .el-submenu .el-submenu__title {
+          width: auto;
+        }
+      }
+      .as-right {
+        width: 100%;
+        position: relative;
+      }
+      .openMenu {
+        background-image: url('../../assets/unlock.png');
+      }
+      .closeMenu {
+        background-image: url('../../assets/lock.png');
+      }
+      .as-row {
+        height: 24px;
+        padding: 10px 10px;
+        border-bottom: solid 1px #eee;
+        position: relative;
+        .as-menulogo {
+          width: 4px;
+          height: 8px;
+          padding: 8px 10px;
+          background-size: 100% 100%;
+          background-position: center center;
+          background-repeat: no-repeat;
+          opacity: 0.6;
+          cursor: pointer;
+        }
+        .as-right-group {
+          position: absolute;
+          right: 20px;
+          top: 10px;
+          .el-button {
+            padding: 5px;
+            background: transparent;
+          }
+          .as-skin-box {
+            padding: 15px;
+            background: #fff;
+            position: absolute;
+            right: -10px;
+            top: 40px;
+            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            .el-button {
+              background: #fff;
+              border-color: #71d358f5;
+              color: #71d358f5;
+            }
+            .el-button--primary.is-plain:hover {
+              background: #f0ffec;
+              border-color: #71d358f5;
+              color: #71d358f5;
+            }
+            &::after {
+              display: block;
+              content: '';
+              width: 0;
+              height: 0;
+              border: 10px solid;
+              border-color: transparent transparent #fff transparent;
+              position: absolute;
+              top: -19px;
+              right: 13px;
+            }
+          }
+          &-btn {
+            display: flex;
+            margin-bottom: 10px;
+            .bggreen {
+              background: #f0ffec !important;
+            }
+          }
+          &-pic {
+            display: block;
+            width: 150px;
+            margin: 10px auto;
+            border-radius: 8px;
+          }
+        }
+      }
     }
   }
 }
