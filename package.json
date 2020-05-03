@@ -1,5 +1,5 @@
 {
-  "name": "asock",
+  "name": "Ashok",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,11 +9,9 @@
     "vue": " cd ./Ashok  && npm run dev ",
     "api": " cd ./api  && npm run dev ",
     "startprogram": "cd ./Ashok && npm run dev",
-    "start": "npm run startapi && npm run startprogram"
+    "start": "npm run startapi && npm run startprogram",
+    "install": "cd ./api  && npm i && cd ../ && cd ./Ashok && npm i"
   },
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "vuex": "^3.3.0"
-  }
+  "license": "ISC"
 }
