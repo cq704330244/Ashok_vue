@@ -22,7 +22,13 @@
         :id="item.id"
         @select="showModel(arguments)"
       />
-      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查询</el-button>
+      <el-button
+        class="filter-item"
+        type="primary"
+        icon="el-icon-search"
+        @click="handleFilter"
+        >查询</el-button
+      >
     </div>
     <el-table
       :data="list"
@@ -36,8 +42,8 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column label="ID" prop="id" sortable align="center" width="80">
-        <template slot-scope="{row}">
-          <span>{{row.id}}</span>
+        <template slot-scope="{ row }">
+          <span>{{ row.id }}</span>
         </template>
       </el-table-column>
       <el-table-column label="属性" width="120px" align="center">
@@ -164,23 +170,28 @@ export default {
     // table list
     getList() {
       const that = this
+      this.showLoading = true
       getList(this.listquery)
         .then(res => {
           that.list = res.date
+          this.$message({
+            message: '恭喜您，查询成功',
+            type: 'success'
+          })
+          setTimeout(res => {
+            this.showLoading = false
+          }, 500)
         })
         .catch(error => {
           console.log(error)
+          this.showLoading = true
         })
-      this.showLoading = false
     },
     // filter事件流
     handleFilter() {
       this.listquery.page = 1
+      this.listquery.search = true
       this.getList()
-      this.$message({
-        message: '恭喜您，查询成功',
-        type: 'success'
-      })
       console.log(this.listquery)
     }
   },
