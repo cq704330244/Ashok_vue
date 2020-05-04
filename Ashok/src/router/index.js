@@ -28,6 +28,11 @@ export default new Router({
           path: '/home/product',
           name: 'product',
           component: Product
+        },
+        {
+          path: '/home/*',
+          name: '404Not',
+          component: Notfound
         }
       ]
     },

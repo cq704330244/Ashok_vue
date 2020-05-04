@@ -14,7 +14,7 @@
       </div>
       <Select
         class="as-select"
-        v-for="(item,index) in selects"
+        v-for="(item, index) in selects"
         :key="index"
         :name="item.name"
         :selectvalue="item.value"
@@ -41,43 +41,43 @@
         </template>
       </el-table-column>
       <el-table-column label="属性" width="120px" align="center">
-        <template slot-scope="{row}">
-          <span>{{row.propsData}}</span>
+        <template slot-scope="{ row }">
+          <span>{{ row.propsData }}</span>
         </template>
       </el-table-column>
       <el-table-column label="定位" width="90px" align="center">
-        <template slot-scope="{row}">
-          <span>{{row.prosition}}</span>
+        <template slot-scope="{ row }">
+          <span>{{ row.prosition }}</span>
         </template>
       </el-table-column>
       <el-table-column label="武器" width="140px" align="center">
-        <template slot-scope="{row}">
+        <template slot-scope="{ row }">
           <span>{{ row.arms }}</span>
         </template>
       </el-table-column>
       <el-table-column label="名字" width="244px" align="center">
-        <template slot-scope="{row}">
+        <template slot-scope="{ row }">
           <span>{{ row.uname }}</span>
         </template>
       </el-table-column>
       <el-table-column label="角色" width="90px" align="center">
-        <template slot-scope="{row}">
+        <template slot-scope="{ row }">
           <span>{{ row.dayA }}</span>
         </template>
       </el-table-column>
       <el-table-column label="推图" width="90px" align="center">
-        <template slot-scope="{row}">
+        <template slot-scope="{ row }">
           <span>{{ row.dayB }}</span>
         </template>
       </el-table-column>
       <el-table-column label="BOSS" width="90px" align="center">
-        <template slot-scope="{row}">
+        <template slot-scope="{ row }">
           <span>{{ row.dayC }}</span>
         </template>
       </el-table-column>
     </el-table>
     <Pagination
-      v-show="total>0"
+      v-show="total > 0"
       :total="total"
       :page.sync="listquery.page"
       :limit.sync="listquery.limit"
@@ -88,6 +88,7 @@
 </template>
 
 <script>
+import { getList } from '../../api/tableData.js'
 import Select from './components/Select.vue'
 import Pagination from '../../components/Pagination'
 export default {
@@ -98,7 +99,7 @@ export default {
   },
   data() {
     return {
-      list: '',
+      list: [],
       showLoading: true,
       tableKey: 0,
       total: 1,
@@ -162,28 +163,14 @@ export default {
     },
     // table list
     getList() {
-      this.list = [
-        {
-          id: 1,
-          propsData: '机械',
-          prosition: '火力',
-          arms: '手枪',
-          uname: '战术装备 - 时无暇 ',
-          dayA: 'S',
-          dayB: 'A',
-          dayC: 'S'
-        },
-        {
-          id: 2,
-          propsData: '生物',
-          prosition: '辅助',
-          arms: '自动步枪',
-          uname: '私服 - 艾琳',
-          dayA: 'B',
-          dayB: 'B',
-          dayC: 'B'
-        }
-      ]
+      const that = this
+      getList(this.listquery)
+        .then(res => {
+          that.list = res.date
+        })
+        .catch(error => {
+          console.log(error)
+        })
       this.showLoading = false
     },
     // filter事件流
@@ -205,9 +192,10 @@ export default {
 
 <style>
 .contianer {
-  position: relative;
-  top: 20px;
-  left: 270px;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  margin-left: -20px;
 }
 .as-input {
   float: left;
