@@ -35,7 +35,7 @@
       class="as-table"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column label="ID" prop="id" sortable="custom" align="center" width="80">
+      <el-table-column label="ID" prop="id" sortable align="center" width="80">
         <template slot-scope="{row}">
           <span>{{row.id}}</span>
         </template>
