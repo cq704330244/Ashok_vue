@@ -22,17 +22,13 @@
         <!-- 第一行辅助信息 -->
         <div class="as-row">
           <div
-            class="as-menulogo "
+            class="as-menulogo"
             :class="{ openMenu: isCollapse, closeMenu: !isCollapse }"
             @click="changeMenu"
           />
           <!-- 右侧菜单组 -->
           <div class="as-right-group">
-            <el-button
-              icon="el-icon-umbrella"
-              circle
-              @click="openSkinmenu"
-            ></el-button>
+            <el-button icon="el-icon-umbrella" circle @click="openSkinmenu"></el-button>
             <div class="as-skin-box" v-if="skinMenu">
               <div class="as-right-group-btn">
                 <template v-for="(item, index) in skinbtn">
@@ -42,27 +38,15 @@
                     plain
                     :key="index"
                     @click="changeSkin(item.key)"
-                    >{{ item.label }}</el-button
-                  >
+                  >{{ item.label }}</el-button>
                 </template>
-              </div>
-              预览：
+              </div>预览：
               <template v-for="(item, index) in skinpic">
-                <img
-                  :src="item.url"
-                  alt=""
-                  :key="index"
-                  v-show="item.show"
-                  class="as-right-group-pic"
-                />
+                <img :src="item.url" alt :key="index" v-show="item.show" class="as-right-group-pic" />
               </template>
               <div class="as-right-group-submit">
-                <el-button type="primary" plain @click="changeskin(skinNum)"
-                  >修改</el-button
-                >
-                <el-button type="primary" plain @click="closeSkinmenu"
-                  >取消</el-button
-                >
+                <el-button type="primary" plain @click="changeskin(skinNum)">修改</el-button>
+                <el-button type="primary" plain @click="closeSkinmenu">取消</el-button>
               </div>
             </div>
           </div>
@@ -108,6 +92,9 @@ export default {
       })
       this.loading = true
     } else {
+      this.$router.push({
+        path: '/home/desktop'
+      })
       this.$message({
         showClose: true,
         message:
