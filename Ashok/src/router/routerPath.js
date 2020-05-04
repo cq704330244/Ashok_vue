@@ -14,14 +14,14 @@ const routerPath = [
     name: '导航二',
     meta: {
       title: '导航二',
-      icon: 'el-icon-star-off'
+      icon: 'el-icon-date'
     },
     component: '',
     redirect: '',
     children: [
       {
-        path: '/path2-1',
-        name: '导航2-1',
+        path: '/home/deskTop',
+        name: 'deskTop',
         component: '',
         redirect: '',
         children: []
@@ -33,14 +33,14 @@ const routerPath = [
     name: '导航三',
     meta: {
       title: '导航三',
-      icon: 'el-icon-star-off'
+      icon: 'el-icon-sunny'
     },
     component: '',
     redirect: '',
     children: [
       {
-        path: '/path3-1',
-        name: '导航3-1',
+        path: '/home/product',
+        name: 'product',
         component: '',
         redirect: '',
         children: [

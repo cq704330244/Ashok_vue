@@ -15,23 +15,20 @@
       </template>
 
       <template v-if="item.children">
-        <div v-for="(itemr, indexr) in item.children" :key="itemr.path">
-          <el-menu-item :index="'1-' + indexr">{{ itemr.name }}</el-menu-item>
+        <div v-for="itemr in item.children" :key="itemr.path">
+          <el-menu-item :index="itemr.path">{{ itemr.name }}</el-menu-item>
         </div>
       </template>
 
       <template v-if="item.children">
         <div v-for="items in item.children" :key="items.name">
           <template v-if="items.children">
-            <div
-              v-for="(itemss, indexss) in items.children"
-              :key="indexss.path"
-            >
-              <el-submenu :index="'1-' + indexss">
+            <div v-for="itemss in items.children" :key="itemss.path">
+              <el-submenu :index="itemss.path">
                 <template slot="title">
-                  <span slot="title">{{ items.name }}</span>
+                  <span slot="title">{{ itemss.name }}</span>
                 </template>
-                <el-menu-item :index="'1-1-' + indexss">{{
+                <el-menu-item :index="itemss.path">{{
                   itemss.name
                 }}</el-menu-item>
               </el-submenu>
