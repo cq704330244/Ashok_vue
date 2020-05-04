@@ -195,7 +195,7 @@ export default {
       console.log(this.listquery)
     }
   },
-  created() {
+  mounted() {
     this.getList()
   }
 }
