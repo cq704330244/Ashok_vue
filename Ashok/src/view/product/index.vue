@@ -120,6 +120,7 @@ export default {
   },
   data() {
     return {
+      methodSpan: true,
       list: [],
       showLoading: true,
       tableKey: 0,
@@ -189,9 +190,11 @@ export default {
       getList(this.listquery)
         .then(res => {
           that.list = res.date
+          let message = res.message
+          this.methodSpan = false
           this.$notify({
             title: '成功',
-            message: '恭喜您，查询成功',
+            message: message,
             type: 'success',
             duration: 2000
           })
@@ -200,11 +203,11 @@ export default {
           }, 500)
         })
         .catch(error => {
-          console.log(error)
           this.showLoading = true
+          let message = error.message
           this.$notify({
             title: '失败',
-            message: '抱歉，查询失败',
+            message: message,
             type: 'error',
             duration: 2000
           })
@@ -219,11 +222,13 @@ export default {
     },
     // table 合并单元格
     arraySpanMethod({ row, column, rowIndex, columnIndex }) {
-      if (columnIndex === 2) {
-        if (rowIndex % 5 === 0) {
-          return [5, 1]
-        } else if (rowIndex % 5 !== 0) {
-          return [0, 0]
+      if (this.methodSpan) {
+        if (columnIndex === 2) {
+          if (rowIndex % 5 === 0) {
+            return [5, 1]
+          } else if (rowIndex % 5 !== 0) {
+            return [0, 0]
+          }
         }
       }
     }
