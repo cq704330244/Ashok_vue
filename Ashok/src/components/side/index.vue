@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    default-active="1-1"
+    default-active="/home/deskTop"
     class="as-el-menu"
     @open="handleOpen"
     @close="handleClose"
