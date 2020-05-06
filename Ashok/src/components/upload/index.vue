@@ -1,6 +1,6 @@
 <template>
-  <div class="aacontainer">
-    <ul class="ull">
+  <div class="as-upload-container">
+    <ul class="as-ul">
       <li
         v-for="(item, index) in imgList"
         :key="index"
@@ -12,7 +12,7 @@
           <div class="del" @click="del(index)">删除</div>
         </div>
       </li>
-      <div class="upwrapper">
+      <div class="as-upwrapper">
         <input
           ref="fileInput"
           multiple
@@ -78,89 +78,6 @@ export default {
 }
 </script>
 
-<style>
-.aacontainer {
-  width: 650px;
-  height: 580px;
-  padding: 10px;
-}
-.ull {
-  margin-bottom: 10px;
-}
-.ull::after {
-  content: '';
-  display: block;
-  clear: both;
-}
-.ull li {
-  width: 150px;
-  height: 150px;
-  float: left;
-  list-style-type: none;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  position: relative;
-}
-.ull li img {
-  width: 149px;
-  height: 149px;
-  display: block;
-  border: 0;
-  border-radius: 6px;
-}
-.upwrapper {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
-  border-radius: 6px;
-  float: left;
-}
-.mark {
-  width: 147.5px;
-  height: 147.5px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  background-color: #edf7ec;
-  border: 1px dashed #c5dac0;
-  border-radius: 6px;
-}
-.mark:hover {
-  border-color: #5ecc42;
-}
-.clumn {
-  width: 2px;
-  height: 20px;
-  background: #ddd;
-  position: absolute;
-  top: 65px;
-  left: 50%;
-  margin-left: -1px;
-  transform: rotate(90deg);
-}
-.row {
-  width: 2px;
-  height: 20px;
-  background: #ddd;
-  position: absolute;
-  top: 65px;
-  left: 50%;
-  margin-left: -1px;
-}
-.imgmark {
-  width: 100%;
-  height: 100%;
-  background: #08080870;
-  border-radius: 6px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: none;
-}
-.del {
-  color: #fff;
-  cursor: pointer;
-}
+<style lang="less" scoped>
+@import './index.less';
 </style>
