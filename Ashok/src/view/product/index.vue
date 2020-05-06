@@ -189,9 +189,11 @@ export default {
       getList(this.listquery)
         .then(res => {
           that.list = res.date
-          this.$message({
+          this.$notify({
+            title: '成功',
             message: '恭喜您，查询成功',
-            type: 'success'
+            type: 'success',
+            duration: 2000
           })
           setTimeout(res => {
             this.showLoading = false
@@ -200,6 +202,12 @@ export default {
         .catch(error => {
           console.log(error)
           this.showLoading = true
+          this.$notify({
+            title: '失败',
+            message: '抱歉，查询失败',
+            type: 'error',
+            duration: 2000
+          })
         })
     },
     // filter事件流
