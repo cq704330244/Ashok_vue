@@ -5,6 +5,7 @@ import Home from '../view/home/index.vue'
 import Notfound from '../view/notFound/index.vue'
 import DeskTop from '../view/deskTop/index.vue'
 import Product from '../view/product/index.vue'
+import upLoad from '../view/imgupload/index.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -28,6 +29,11 @@ export default new Router({
           path: '/home/product',
           name: 'product',
           component: Product
+        },
+        {
+          path: '/home/upLoad',
+          name: 'upLoad',
+          component: upLoad
         },
         {
           path: '/home/*',

@@ -7,7 +7,16 @@ const routerPath = [
       icon: 'el-icon-star-off'
     },
     component: '',
-    redirect: ''
+    redirect: '',
+    children: [
+      {
+        path: '/home/deskTop',
+        name: 'deskTop',
+        component: '',
+        redirect: '',
+        children: []
+      }
+    ]
   },
   {
     path: '/path2',
@@ -20,8 +29,8 @@ const routerPath = [
     redirect: '',
     children: [
       {
-        path: '/home/deskTop',
-        name: 'deskTop',
+        path: '/home/upLoad',
+        name: 'upLoad',
         component: '',
         redirect: '',
         children: []
