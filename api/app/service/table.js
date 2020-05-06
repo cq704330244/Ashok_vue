@@ -4,17 +4,20 @@ class TableService extends Service {
   async getDate(table) {
     const { tableData } = require('../public/tableDate.js')
     const { ctx } = this
+    console.log(table)
     if (table.search) {
+      console.log(111)
       const result = {}
       const { title, selectProp, arms, prosition } = table
-      const filterdata = tableData.filter((x) => {
+      const filterdata = tableData.filter((items) => {
         return (
-          x.arms === arms &&
-          x.prosition === prosition &&
-          x.uname === title &&
-          x.propsData === selectProp
+          items.uname == title &&
+          items.propsData == selectProp &&
+          items.arms == arms &&
+          items.prosition == prosition
         )
       })
+      console.log(filterdata)
       ctx.status = 200
       result.success = true
       result.status = 200
