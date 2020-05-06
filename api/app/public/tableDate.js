@@ -1,5 +1,4 @@
-const tableData = [
-  {
+const tableData = [{
     id: 1,
     propsData: '机械',
     prosition: '火力',
@@ -31,6 +30,36 @@ const tableData = [
   },
   {
     id: 4,
+    propsData: '防疫',
+    prosition: '辅助',
+    arms: '狙击枪',
+    uname: '皮城执法官 - 凯瑟琳',
+    dayA: 'S',
+    dayB: 'A',
+    dayC: 'A'
+  },
+  {
+    id: 5,
+    propsData: '防疫',
+    prosition: '辅助',
+    arms: '狙击枪',
+    uname: '皮城执法官 - 凯瑟琳',
+    dayA: 'S',
+    dayB: 'A',
+    dayC: 'A'
+  },
+  {
+    id: 6,
+    propsData: '防疫',
+    prosition: '辅助',
+    arms: '狙击枪',
+    uname: '皮城执法官 - 凯瑟琳',
+    dayA: 'S',
+    dayB: 'A',
+    dayC: 'A'
+  },
+  {
+    id: 7,
     propsData: '防疫',
     prosition: '辅助',
     arms: '狙击枪',

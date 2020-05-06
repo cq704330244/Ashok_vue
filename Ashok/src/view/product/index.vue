@@ -34,9 +34,9 @@
       :data="list"
       :key="tableKey"
       v-loading="showLoading"
-      stripe
       border
       fit
+      :span-method="arraySpanMethod"
       highlight-current-row
       class="as-table"
     >
@@ -68,17 +68,21 @@
       </el-table-column>
       <el-table-column label="角色" width="90px" align="center">
         <template slot-scope="{ row }">
-          <span>{{ row.dayA }}</span>
+          <el-tag :type="row.dayA | statusFilter">{{ row.dayA }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="推图" width="90px" align="center">
         <template slot-scope="{ row }">
-          <span>{{ row.dayB }}</span>
+          <el-tag effect="plain" :type="row.dayB | statusFilter">{{
+            row.dayB
+          }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="BOSS" width="90px" align="center">
         <template slot-scope="{ row }">
-          <span>{{ row.dayC }}</span>
+          <el-tag effect="dark" :type="row.dayC | statusFilter">{{
+            row.dayC
+          }}</el-tag>
         </template>
       </el-table-column>
     </el-table>
@@ -102,6 +106,17 @@ export default {
   components: {
     Select,
     Pagination
+  },
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        S: 'warning',
+        A: 'danger',
+        B: '',
+        C: 'info'
+      }
+      return statusMap[status]
+    }
   },
   data() {
     return {
@@ -193,6 +208,16 @@ export default {
       this.listquery.search = true
       this.getList()
       console.log(this.listquery)
+    },
+    // table 合并单元格
+    arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 2) {
+        if (rowIndex % 5 === 0) {
+          return [5, 1]
+        } else if (rowIndex % 5 !== 0) {
+          return [0, 0]
+        }
+      }
     }
   },
   mounted() {
