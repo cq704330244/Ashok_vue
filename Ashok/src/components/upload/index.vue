@@ -20,7 +20,7 @@
           @change="fileChange($event)"
           style="display:none"
         />
-        <div class="mark" @click="onchange">
+        <div class="as-mark" @click="onchange">
           <div class="row" />
           <div class="clumn" />
         </div>
