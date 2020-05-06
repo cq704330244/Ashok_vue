@@ -191,13 +191,23 @@ export default {
         .then(res => {
           that.list = res.date
           let message = res.message
-          this.methodSpan = false
-          this.$notify({
-            title: '成功',
-            message: message,
-            type: 'success',
-            duration: 2000
-          })
+          this.methodSpan = !this.listquery.search
+          if (message === '查询成功!' || !message) {
+            this.$notify({
+              title: '成功',
+              message: message || '初始化成功！',
+              type: 'success',
+              duration: 2000
+            })
+          } else {
+            this.$notify({
+              title: '失败',
+              message: message,
+              type: 'error',
+              duration: 2000
+            })
+          }
+
           setTimeout(res => {
             this.showLoading = false
           }, 500)
@@ -218,7 +228,6 @@ export default {
       this.listquery.page = 1
       this.listquery.search = true
       this.getList()
-      console.log(this.listquery)
     },
     // table 合并单元格
     arraySpanMethod({ row, column, rowIndex, columnIndex }) {
