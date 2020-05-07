@@ -2,11 +2,21 @@ const Service = require('egg').Service
 
 class TableService extends Service {
   async getDate(table) {
-    const { tableData } = require('../public/tableDate.js')
-    const { ctx } = this
+    const {
+      tableData
+    } = require('../public/tableDate.js')
+    const {
+      ctx
+    } = this
+    console.log(table)
     if (table.search) {
       const result = {}
-      const { title, selectProp, arms, prosition } = table
+      const {
+        title,
+        selectProp,
+        arms,
+        prosition
+      } = table
       const filterdata = tableData.filter((items) => {
         return (
           items.uname == title &&

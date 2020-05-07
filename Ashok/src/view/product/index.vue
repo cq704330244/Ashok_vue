@@ -30,17 +30,39 @@
         >查询</el-button
       >
     </div>
+    <div class="as-tableheader">
+      <div style="flex:0.1"></div>
+      <div style="flex:0.9">
+        <el-row :gutter="30">
+          <el-col :span="2"
+            ><el-button @click="checkboxA">批量取消</el-button></el-col
+          >
+          <el-col :span="2"
+            ><el-button @click="checkboxD">批量删除</el-button></el-col
+          >
+        </el-row>
+      </div>
+    </div>
     <el-table
-      :data="list"
+      :data="
+        list.filter(
+          data =>
+            !listquery.title ||
+            data.uname.toLowerCase().includes(listquery.title.toLowerCase())
+        )
+      "
       :key="tableKey"
       v-loading="showLoading"
       border
       fit
       :span-method="arraySpanMethod"
+      @selection-change="handleSelectionChange"
       highlight-current-row
       class="as-table"
+      ref="multipleTable"
     >
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column align="center" type="selection" width="55">
+      </el-table-column>
       <el-table-column label="ID" prop="id" sortable align="center" width="80">
         <template slot-scope="{ row }">
           <span>{{ row.id }}</span>
@@ -83,6 +105,22 @@
           <el-tag effect="dark" :type="row.dayC | statusFilter">{{
             row.dayC
           }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="200px" align="center">
+        <template slot-scope="{ row, $index }">
+          <el-button
+            type="primary"
+            icon="el-icon-edit"
+            circle
+            @click="handleUpdate(row)"
+          ></el-button>
+          <el-button
+            type="danger"
+            icon="el-icon-delete"
+            circle
+            @click="handleDelete(row, $index)"
+          ></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -240,6 +278,58 @@ export default {
           }
         }
       }
+    },
+    // row (index) table
+    handleUpdate(row) {
+      console.log(row)
+    },
+    // buttton delete
+    handleDelete(row, status) {
+      this.$notify({
+        title: '成功',
+        message: '删除成功！',
+        type: 'success',
+        duration: 2000
+      })
+      this.list.splice(status, 1)
+    },
+    // delete handle any
+    checkboxD() {
+      let status = this.handleChange
+      console.log(status)
+      let deleteArr = []
+      if (status !== undefined) {
+        status.map(item => {
+          let id = item.id
+          deleteArr.push(id)
+        })
+        this.$notify({
+          title: '批量删除成功！',
+          message: 'id-' + deleteArr,
+          type: 'success',
+          duration: 2000
+        })
+      } else {
+        this.$notify({
+          title: '失败',
+          message: '当前没有可删除项',
+          type: 'error',
+          duration: 2000
+        })
+      }
+    },
+    // 批量取消
+    checkboxA() {
+      this.$refs.multipleTable.clearSelection()
+      this.$notify({
+        title: '成功',
+        message: '批量取消成功！',
+        type: 'success',
+        duration: 2000
+      })
+    },
+    handleSelectionChange(val) {
+      this.handleChange = val
     }
   },
   mounted() {
@@ -267,10 +357,15 @@ export default {
   margin: 0 0 0 20px;
 }
 .as-table {
-  width: 1000px;
+  width: 1200px;
   margin: 60px auto;
 }
 .pagination {
   text-align: center;
+}
+.as-tableheader {
+  display: flex;
+  flex: 1;
+  margin: 40px 0 -40px 0;
 }
 </style>
