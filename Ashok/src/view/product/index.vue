@@ -35,10 +35,14 @@
       <div style="flex:0.9">
         <el-row :gutter="30">
           <el-col :span="2"
-            ><el-button @click="checkboxA">批量取消</el-button></el-col
+            ><el-button type="success" plain @click="checkboxA"
+              >批量取消</el-button
+            ></el-col
           >
           <el-col :span="2"
-            ><el-button @click="checkboxD">批量删除</el-button></el-col
+            ><el-button type="danger" plain @click="checkboxD"
+              >批量删除</el-button
+            ></el-col
           >
         </el-row>
       </div>
@@ -90,20 +94,24 @@
       </el-table-column>
       <el-table-column label="角色" width="90px" align="center">
         <template slot-scope="{ row }">
-          <el-tag :type="row.dayA | statusFilter">{{ row.dayA }}</el-tag>
+          <el-tag :type="row.dayA.toUpperCase() | statusFilter">{{
+            row.dayA.toUpperCase()
+          }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="推图" width="90px" align="center">
         <template slot-scope="{ row }">
-          <el-tag effect="plain" :type="row.dayB | statusFilter">{{
-            row.dayB
-          }}</el-tag>
+          <el-tag
+            effect="plain"
+            :type="row.dayB.toUpperCase() | statusFilter"
+            >{{ row.dayB.toUpperCase() }}</el-tag
+          >
         </template>
       </el-table-column>
       <el-table-column label="BOSS" width="90px" align="center">
         <template slot-scope="{ row }">
-          <el-tag effect="dark" :type="row.dayC | statusFilter">{{
-            row.dayC
+          <el-tag effect="dark" :type="row.dayC.toUpperCase() | statusFilter">{{
+            row.dayC.toUpperCase()
           }}</el-tag>
         </template>
       </el-table-column>
@@ -132,6 +140,55 @@
       @pagination="getList"
       class="pagination"
     />
+    <el-dialog
+      title="修改"
+      :visible.sync="dialogVisible"
+      :before-close="handleClose"
+      width="30%"
+    >
+      <el-form ref="dialogForm" :model="dialogForm" label-width="80px">
+        <el-form-item label="ID：">
+          <el-input
+            clearable
+            style="width:120px"
+            v-model="dialogForm.id"
+            :disabled="modify"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="英雄：">
+          <el-input
+            clearable
+            style="width:300px"
+            v-model="dialogForm.uname"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="角色：">
+          <el-input
+            clearable
+            style="width:120px"
+            v-model="dialogForm.dayA"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="推图：">
+          <el-input
+            clearable
+            style="width:120px"
+            v-model="dialogForm.dayB"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="BOSS：">
+          <el-input
+            clearable
+            style="width:120px"
+            v-model="dialogForm.dayC"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="createData">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -158,6 +215,9 @@ export default {
   },
   data() {
     return {
+      dialogVisible: false,
+      dialogStatus: '',
+      modify: false,
       methodSpan: true,
       list: [],
       showLoading: true,
@@ -171,6 +231,16 @@ export default {
         arms: '',
         page: 1,
         limit: 20
+      },
+      dialogForm: {
+        id: '',
+        propsData: '',
+        prosition: '',
+        arms: '',
+        uname: '',
+        dayA: '',
+        dayB: '',
+        dayC: ''
       },
       selects: [
         {
@@ -281,7 +351,18 @@ export default {
     },
     // row (index) table
     handleUpdate(row) {
-      console.log(row)
+      this.dialogForm = Object.assign({}, row) // copy
+      this.modify = true
+      this.dialogStatus = 'update'
+      this.dialogVisible = true
+      // this.$nextTick(() => {
+      //   this.$refs['dialogForm'].clearValidate()
+      // })
+    },
+    createData() {
+      const index = this.list.findIndex(v => v.id === this.dialogForm.id)
+      this.list.splice(index, 1, this.dialogForm)
+      this.dialogVisible = false
     },
     // buttton delete
     handleDelete(row, status) {
@@ -296,9 +377,8 @@ export default {
     // delete handle any
     checkboxD() {
       let status = this.handleChange
-      console.log(status)
       let deleteArr = []
-      if (status !== undefined) {
+      if (status !== undefined && status.length !== 0) {
         status.map(item => {
           let id = item.id
           deleteArr.push(id)
@@ -330,6 +410,13 @@ export default {
     },
     handleSelectionChange(val) {
       this.handleChange = val
+    },
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
     }
   },
   mounted() {
