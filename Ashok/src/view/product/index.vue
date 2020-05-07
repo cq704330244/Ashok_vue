@@ -29,6 +29,9 @@
         @click="handleFilter"
         >查询</el-button
       >
+      <el-button icon="el-icon-edit" type="primary" @click="handleAdd">
+        新增
+      </el-button>
     </div>
     <div class="as-tableheader">
       <div style="flex:0.1"></div>
@@ -186,7 +189,12 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="createData">确 定</el-button>
+        <el-button
+          type="primary"
+          @click="dialogStatus === 'create' ? updateData() : createData()"
+        >
+          确 定
+        </el-button>
       </span>
     </el-dialog>
   </div>
@@ -359,9 +367,36 @@ export default {
       //   this.$refs['dialogForm'].clearValidate()
       // })
     },
+    addDialogForm() {
+      let length = this.list.length
+      let id = this.list[length - 1].id + 1
+      this.dialogForm = {
+        id: id,
+        propsData: '',
+        prosition: '',
+        arms: '',
+        uname: '',
+        dayA: '',
+        dayB: '',
+        dayC: ''
+      }
+    },
+    // add
+    handleAdd() {
+      this.addDialogForm()
+      this.dialogStatus = 'create'
+      this.modify = true
+      this.dialogVisible = true
+    },
+    // 替换数组
     createData() {
       const index = this.list.findIndex(v => v.id === this.dialogForm.id)
       this.list.splice(index, 1, this.dialogForm)
+      this.dialogVisible = false
+    },
+    // 添加数组
+    updateData() {
+      this.list.unshift(this.dialogForm)
       this.dialogVisible = false
     },
     // buttton delete
@@ -381,6 +416,8 @@ export default {
       if (status !== undefined && status.length !== 0) {
         status.map(item => {
           let id = item.id
+          let inx = this.list.findIndex(v => v.id === id)
+          this.list.splice(inx, 1)
           deleteArr.push(id)
         })
         this.$notify({
