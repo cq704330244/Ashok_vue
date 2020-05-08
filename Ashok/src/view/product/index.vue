@@ -407,7 +407,8 @@ export default {
         type: 'success',
         duration: 2000
       })
-      this.list.splice(status, 1)
+      const index = this.list.indexOf(row)
+      this.list.splice(index, 1)
     },
     // delete handle any
     checkboxD() {
