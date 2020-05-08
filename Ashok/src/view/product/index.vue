@@ -34,20 +34,9 @@
       </el-button>
     </div>
     <div class="as-tableheader">
-      <div style="flex:0.1"></div>
-      <div style="flex:0.9">
-        <el-row :gutter="30">
-          <el-col :span="2"
-            ><el-button type="success" plain @click="checkboxA"
-              >批量取消</el-button
-            ></el-col
-          >
-          <el-col :span="2"
-            ><el-button type="danger" plain @click="checkboxD"
-              >批量删除</el-button
-            ></el-col
-          >
-        </el-row>
+      <div>
+        <el-button type="success" plain @click="checkboxA">批量取消</el-button>
+        <el-button type="danger" plain @click="checkboxD">批量删除</el-button>
       </div>
     </div>
     <el-table
@@ -464,12 +453,6 @@ export default {
 </script>
 
 <style>
-.contianer {
-  display: flex;
-  justify-content: center;
-  padding-top: 20px;
-  margin-left: -20px;
-}
 .as-input {
   float: left;
 }
@@ -481,9 +464,11 @@ export default {
 .filter-item {
   margin: 0 0 0 20px;
 }
-.as-table {
+.as-table,
+.as-tableheader,
+.contianer {
   width: 1200px;
-  margin: 60px auto;
+  margin: 40px auto;
 }
 .pagination {
   text-align: center;
@@ -491,6 +476,5 @@ export default {
 .as-tableheader {
   display: flex;
   flex: 1;
-  margin: 40px 0 -40px 0;
 }
 </style>
