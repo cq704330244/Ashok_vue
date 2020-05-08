@@ -20,6 +20,7 @@
         :selectvalue="item.value"
         :item="item.arr"
         :id="item.id"
+        :title="true"
         @select="showModel(arguments)"
       />
       <el-button
@@ -138,7 +139,12 @@
       :before-close="handleClose"
       width="30%"
     >
-      <el-form ref="dialogForm" :model="dialogForm" label-width="80px">
+      <el-form
+        :rules="rules"
+        ref="dialogForm"
+        :model="dialogForm"
+        label-width="80px"
+      >
         <el-form-item label="ID：">
           <el-input
             clearable
@@ -147,33 +153,51 @@
             :disabled="modify"
           ></el-input>
         </el-form-item>
-        <el-form-item label="英雄：">
+        <el-form-item for="uname" prop="uname" label="英雄：">
           <el-input
             clearable
             style="width:300px"
+            id="uname"
             v-model="dialogForm.uname"
           ></el-input>
         </el-form-item>
-        <el-form-item label="角色：">
+        <el-form-item for="dayA" prop="dayA" label="角色：">
           <el-input
             clearable
             style="width:120px"
+            id="dayA"
             v-model="dialogForm.dayA"
           ></el-input>
         </el-form-item>
-        <el-form-item label="推图：">
+        <el-form-item for="dayB" prop="dayB" label="推图：">
           <el-input
             clearable
             style="width:120px"
+            id="dayB"
             v-model="dialogForm.dayB"
           ></el-input>
         </el-form-item>
-        <el-form-item label="BOSS：">
+        <el-form-item for="dayC" prop="dayC" label="BOSS：">
           <el-input
             clearable
+            id="dayC"
             style="width:120px"
             v-model="dialogForm.dayC"
           ></el-input>
+        </el-form-item>
+        <el-form-item
+          v-for="(item, index) in selects"
+          :key="index"
+          :label="item.name"
+        >
+          <Select
+            :selectvalue="item.value"
+            :item="item.arr"
+            :id="item.id"
+            :title="false"
+            :ruleselect="rules"
+            @selects="showModels(arguments)"
+          />
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -221,6 +245,7 @@ export default {
       tableKey: 0,
       total: 1,
       model: [undefined, undefined, undefined],
+      models: [undefined, undefined, undefined],
       listquery: {
         title: '',
         selectProp: '',
@@ -238,6 +263,18 @@ export default {
         dayA: '',
         dayB: '',
         dayC: ''
+      },
+      rules: {
+        uname: [
+          { required: true, message: '属性: 不能为空', trigger: 'change' }
+        ],
+        dayA: [
+          { required: true, message: '角色: 不能为空', trigger: 'change' }
+        ],
+        dayB: [
+          { required: true, message: '推图: 不能为空', trigger: 'change' }
+        ],
+        dayC: [{ required: true, message: 'BOSS: 不能为空', trigger: 'change' }]
       },
       selects: [
         {
@@ -287,6 +324,13 @@ export default {
       _that.selectProp = this.model[0]
       _that.prosition = this.model[1]
       _that.arms = this.model[2]
+    },
+    showModels(res) {
+      this.models[res[1]] = res[0]
+      let _that = this.dialogForm
+      _that.propsData = this.models[0]
+      _that.prosition = this.models[1]
+      _that.arms = this.models[2]
     },
     // table list
     getList() {
@@ -346,19 +390,50 @@ export default {
         }
       }
     },
-    // row (index) table
+    // row table  修改
     handleUpdate(row) {
       this.dialogForm = Object.assign({}, row) // copy
+      this.models = [
+        this.dialogForm.propsData,
+        this.dialogForm.prosition,
+        this.dialogForm.arms
+      ]
+      console.log(this.models)
       this.modify = true
       this.dialogStatus = 'update'
       this.dialogVisible = true
-      // this.$nextTick(() => {
-      //   this.$refs['dialogForm'].clearValidate()
-      // })
+      this.$nextTick(() => {
+        this.$refs['dialogForm'].clearValidate()
+      })
     },
+    // 修改
+    createData() {
+      this.$refs['dialogForm'].validate(valid => {
+        if (valid) {
+          const index = this.list.findIndex(v => v.id === this.dialogForm.id)
+          console.log(this.dialogForm)
+          this.list.splice(index, 1, this.dialogForm)
+          this.dialogVisible = false
+          this.$notify({
+            title: '修改table列表！',
+            message: this.list[index] + '改为' + this.dialogForm,
+            type: 'success',
+            duration: 2000
+          })
+        } else {
+          this.$notify({
+            title: '修改table列表失败！',
+            message: '必选项不能为空',
+            type: 'error',
+            duration: 2000
+          })
+        }
+      })
+    },
+    // 文本框 判断id
     addDialogForm() {
       let length = this.list.length
-      let id = this.list[length - 1].id + 1
+      let id = this.list.length > 0 ? this.list[length - 1].id + 1 : 1
       this.dialogForm = {
         id: id,
         propsData: '',
@@ -370,23 +445,38 @@ export default {
         dayC: ''
       }
     },
-    // add
+    // add 添加
     handleAdd() {
+      this.models = []
       this.addDialogForm()
       this.dialogStatus = 'create'
       this.modify = true
       this.dialogVisible = true
+      this.$nextTick(() => {
+        this.$refs['dialogForm'].clearValidate()
+      })
     },
-    // 替换数组
-    createData() {
-      const index = this.list.findIndex(v => v.id === this.dialogForm.id)
-      this.list.splice(index, 1, this.dialogForm)
-      this.dialogVisible = false
-    },
-    // 添加数组
+    // 添加
     updateData() {
-      this.list.unshift(this.dialogForm)
-      this.dialogVisible = false
+      this.$refs['dialogForm'].validate(valid => {
+        if (valid) {
+          this.list.unshift(this.dialogForm)
+          this.dialogVisible = false
+          this.$notify({
+            title: '新增table列表！',
+            message: this.dialogForm,
+            type: 'success',
+            duration: 2000
+          })
+        } else {
+          this.$notify({
+            title: '新增table列表失败！',
+            message: '必选项不能为空',
+            type: 'error',
+            duration: 2000
+          })
+        }
+      })
     },
     // buttton delete
     handleDelete(row, status) {
