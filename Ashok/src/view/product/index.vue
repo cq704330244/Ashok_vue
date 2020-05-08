@@ -195,7 +195,7 @@
             :item="item.arr"
             :id="item.id"
             :title="false"
-            :ruleselect="rules"
+            :models="models[index]"
             @selects="showModels(arguments)"
           />
         </el-form-item>
@@ -411,7 +411,6 @@ export default {
       this.$refs['dialogForm'].validate(valid => {
         if (valid) {
           const index = this.list.findIndex(v => v.id === this.dialogForm.id)
-          console.log(this.dialogForm)
           this.list.splice(index, 1, this.dialogForm)
           this.dialogVisible = false
           this.$notify({
