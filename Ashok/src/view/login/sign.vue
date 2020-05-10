@@ -97,6 +97,7 @@ export default {
             .then(res => {
               that.storeUser(res.date)
               sessionStorage.setItem('admin', true)
+              sessionStorage.setItem('userInfo', JSON.stringify(res.date))
               this.$router.push({ path: '/home' })
             })
             .catch(err => {

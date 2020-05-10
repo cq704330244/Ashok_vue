@@ -1,5 +1,6 @@
 <template>
   <div class="as-upload-container">
+    <h1 class="tip">暂时只支持图片文件的上传</h1>
     <ul class="as-ul">
       <li
         v-for="(item, index) in imgList"
@@ -9,7 +10,10 @@
       >
         <img :src="item.src" alt />
         <div class="imgmark" :ref="'img' + index">
-          <div class="del" @click="del(index)">删除</div>
+          <div class="markbtn">
+            <div class="del" @click="Picturepreview(item)" />
+            <div class="preview" @click="del(index)" />
+          </div>
         </div>
       </li>
       <div class="as-upwrapper">
@@ -26,6 +30,9 @@
         </div>
       </div>
     </ul>
+    <el-dialog :visible.sync="dialogVisible">
+      <img width="100%" :src="dialogImageUrl" alt="" />
+    </el-dialog>
   </div>
 </template>
 
@@ -34,7 +41,9 @@ export default {
   name: 'upload',
   data() {
     return {
-      imgList: []
+      imgList: [],
+      dialogVisible: false,
+      dialogImageUrl: ''
     }
   },
   methods: {
@@ -48,6 +57,10 @@ export default {
     },
     del(value) {
       this.imgList.splice(value, 1)
+    },
+    Picturepreview(file) {
+      this.dialogImageUrl = file.src
+      this.dialogVisible = true
     },
     fileChange(el) {
       this.fileList(el.target.files[0])

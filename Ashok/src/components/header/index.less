@@ -7,6 +7,66 @@
   width: 100%;
   color: #000;
   height: 60px;
+  .el-drawer {
+    font-size: 18px;
+    font-weight: 600 !important;
+    padding: 20px;
+    width: 400px !important;
+    box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.054),
+      0 16px 24px 2px rgba(0, 0, 0, 0.061), 0 6px 30px 5px rgba(0, 0, 0, 0.027);
+    top: 60px;
+    height: calc(100% - 60px);
+  }
+  .usercontainer {
+    .line div {
+      margin-right: 10px;
+    }
+    .line,
+    .address {
+      color: #333;
+      height: 50px;
+      line-height: 50px;
+      display: flex;
+      align-items: center;
+      img {
+        width: 26px;
+        height: 26px;
+        display: block;
+        margin-right: 10px;
+      }
+      .signature {
+        color: #71d358f5;
+      }
+      .detials {
+        display: flex;
+        font-size: 15px;
+        font-weight: normal;
+        .label {
+          color: #999 !important;
+          margin-right: 15px;
+        }
+        .text {
+          font-size: 15px;
+        }
+      }
+      .em {
+        width: 18px !important;
+        height: auto !important;
+        margin-left: 3px;
+      }
+
+      #staus {
+        width: auto;
+        height: auto;
+      }
+    }
+    .address {
+      align-items: flex-start;
+      #icon {
+        margin-top: 11px;
+      }
+    }
+  }
   .as-logo {
     width: 32px;
     height: 32px;
