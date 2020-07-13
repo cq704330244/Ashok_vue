@@ -13,8 +13,5 @@
     "install": "cd ./api  && npm i && cd ../ && cd ./Ashok && npm i"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "echarts": "^4.7.0"
-  }
+  "license": "ISC"
 }
