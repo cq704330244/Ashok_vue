@@ -1,5 +1,24 @@
 const routerPath = [
   {
+    path: '/path4',
+    name: '新手引导',
+    meta: {
+      title: '新手引导',
+      icon: 'el-icon-s-promotion'
+    },
+    component: '',
+    redirect: '',
+    children: [
+      {
+        path: '/home/guide',
+        name: '新手指导指南',
+        component: '',
+        redirect: '',
+        children: []
+      }
+    ]
+  },
+  {
     path: '/path1',
     name: '导航一',
     meta: {

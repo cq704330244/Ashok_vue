@@ -1,10 +1,10 @@
 <template>
   <div class="as-header">
-    <div class="as-logo">
+    <div id="as-logo" class="as-logo">
       <img src="../../assets/aslogo.png" alt="" />
     </div>
     Ashok
-    <div class="as-user" @click="showinformation">
+    <div id="as-user" class="as-user" @click="showinformation">
       <img :src="userInfo.image || sessionUser.image" alt="" />
     </div>
     <el-drawer

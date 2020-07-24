@@ -5,11 +5,11 @@
     <!-- 下方容器 -->
     <div class="as-container">
       <!-- 左侧导航 -->
-      <div class="as-left">
+      <div id="as-left" class="as-left">
         <Side :isCollapse="isCollapse" />
       </div>
       <!-- 右侧内容区 -->
-      <div class="as-right">
+      <div class="as-right" id="as-right">
         <template v-for="(item, index) in skinpic">
           <div
             v-if="item.show"
@@ -29,6 +29,7 @@
           <!-- 右侧菜单组 -->
           <div class="as-right-group">
             <el-button
+              id="as-package"
               icon="el-icon-umbrella"
               circle
               @click="openSkinmenu"
