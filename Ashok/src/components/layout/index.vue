@@ -101,24 +101,27 @@ export default {
     })
   },
   mounted() {
-    if (!sessionStorage.getItem('admin')) {
-      this.$message({
-        showClose: true,
-        message: '登陆过期！请前往登陆界面重新登陆！',
-        type: 'warning'
-      })
-      this.loading = true
-    } else {
-      this.$router.push({
-        path: '/home/desktop'
-      })
-      this.$message({
-        showClose: true,
-        message:
-          '登陆成功！欢迎' + (this.userInfo.name || '小主') + '的来到！！',
-        type: 'success'
-      })
-    }
+    // if (!sessionStorage.getItem('admin')) {
+    //   this.$message({
+    //     showClose: true,
+    //     message: '登陆过期！请前往登陆界面重新登陆！',
+    //     type: 'warning'
+    //   })
+    //   this.loading = true
+    // } else {
+    //   this.$router.push({
+    //     path: '/home/desktop'
+    //   })
+    //   this.$message({
+    //     showClose: true,
+    //     message:
+    //       '登陆成功！欢迎' + (this.userInfo.name || '小主') + '的来到！！',
+    //     type: 'success'
+    //   })
+    // }
+    this.$router.push({
+      path: '/home/desktop'
+    })
   },
   methods: {
     changeMenu() {

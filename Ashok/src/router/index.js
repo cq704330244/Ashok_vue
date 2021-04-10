@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '../view/login/Login'
+import Tree from '../view/tree/index.vue'
 import Home from '../view/home/index.vue'
 import Notfound from '../view/notFound/index.vue'
 import DeskTop from '../view/deskTop/index.vue'
@@ -15,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/tree',
+      name: 'Tree',
+      component: Tree
     },
     {
       path: '/home',

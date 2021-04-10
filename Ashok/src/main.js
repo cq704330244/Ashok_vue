@@ -6,12 +6,14 @@ import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
 import store from './store/index'
 import echarts from 'echarts'
+import Vant from 'vant'
+import 'vant/lib/index.css'
 
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.use(ElementUI)
-
+Vue.use(Vant)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
