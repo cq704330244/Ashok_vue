@@ -1,6 +1,7 @@
 <template>
   <div class="dep-item">
     <input
+      v-if="!see"
       type="checkbox"
       :value="item"
       v-model="checkeDepartmentData"
@@ -8,33 +9,52 @@
     />
     <div class="contents">
       <div class="item-space" @click="departmentChange">
-        {{ item.name }} <span>({{ getMemberNum(item.children) }}人)</span>
+        <template v-if="getSelectMemberNum() <= 0">
+          {{ item.name }} <span>({{ getMemberNum(item.children) }}人)</span>
+        </template>
+        <template v-if="getSelectMemberNum() > 0">
+          {{ item.name }}
+          <span class="hasSelect"
+            >( {{ getSelectMemberNum() }}/{{
+              getMemberNum(item.children)
+            }}人)</span
+          >
+        </template>
       </div>
-      <div class="divide" />
-      <div
-        v-if="
-          checkeDepartmentData.every(e => {
-            return e !== item
-          })
-        "
-        class="right"
-        @click="goNextLevel"
-      >
-        <van-icon name="cluster-o" size="16" color="#1890ff" />
-        <span>下级</span>
-      </div>
-      <div
-        v-if="
-          checkeDepartmentData.some(e => {
-            return e === item
-          })
-        "
-        class="right"
-        :style="{ opacity: 0.5 }"
-      >
-        <van-icon name="cluster-o" size="16" color="#1890ff" />
-        <span>下级</span>
-      </div>
+      <template v-if="!see">
+        <div class="divide" />
+        <div
+          v-if="
+            checkeDepartmentData.every(e => {
+              return e !== item
+            })
+          "
+          class="right"
+          @click="goNextLevel"
+        >
+          <van-icon name="cluster-o" size="16" color="#1890ff" />
+          <span>下级</span>
+        </div>
+        <div
+          v-if="
+            checkeDepartmentData.some(e => {
+              return e === item
+            })
+          "
+          class="right"
+          :style="{ opacity: 0.5 }"
+        >
+          <van-icon name="cluster-o" size="16" color="#1890ff" />
+          <span>下级</span>
+        </div>
+      </template>
+      <van-icon
+        v-if="see"
+        name="close"
+        @click="$emit('deletedepartment')"
+        color="#1890ff"
+        size="16"
+      />
     </div>
   </div>
 </template>
@@ -44,19 +64,12 @@ import { getPersonNum, getPerson } from './utils'
 
 export default {
   name: 'department',
-  props: ['item', 'checkedNamesData'],
+  props: ['item', 'checkedNamesData', 'see'],
   computed: {
     checkeDepartmentData() {
       return this.checkedNamesData
     }
   },
-  // watch: {
-  //   checkedNamesData: function(val, old) {
-  //     console.log(this.item)
-  //     console.log(getPerson(this.item.children))
-  //     console.log(val)
-  //   }
-  // },
   methods: {
     goNextLevel() {
       this.$emit('goNextLevel')
@@ -66,6 +79,19 @@ export default {
     },
     getMemberNum(data) {
       return getPersonNum(data)
+    },
+    val(arr1, arr2) {
+      return [...new Set(arr1)].filter(item => arr2.includes(item))
+    },
+    getSelectMemberNum(data) {
+      const Arr = this.val(
+        this.checkedNamesData,
+        this.getMembers(this.item.children)
+      )
+      return Arr.length
+    },
+    getMembers(data) {
+      return getPerson(data)
     },
     clickDepartment() {
       this.$emit('clickDepartment')
@@ -91,11 +117,17 @@ export default {
     }
   }
   .contents {
+    .hasSelect {
+      color: #1890ff;
+    }
     flex: 1 1 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #eee;
+    .van-icon-close {
+      margin-right: 16px;
+    }
   }
   .divide {
     width: 1px;

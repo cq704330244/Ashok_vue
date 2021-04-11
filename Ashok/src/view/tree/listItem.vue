@@ -5,6 +5,8 @@
       :item="itemData"
       :checkedNamesData="checkedData"
       @personChange="personChange"
+      @deletePerson="$emit('deletePerson')"
+      :see="see"
     />
     <department
       v-show="itemData.children"
@@ -13,6 +15,8 @@
       @goNextLevel="goNextLevel"
       @departmentChange="departmentChange"
       @clickItem="clickDepartment"
+      :see="see"
+      @deletedepartment="$emit('deletePerson')"
     />
   </div>
 </template>
@@ -23,7 +27,7 @@ import department from './department'
 
 export default {
   name: 'listItem',
-  props: ['item', 'checkedNameArr'],
+  props: ['item', 'checkedNameArr', 'see'],
   computed: {
     itemData() {
       return this.item

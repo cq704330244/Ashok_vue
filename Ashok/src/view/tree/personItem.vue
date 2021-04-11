@@ -1,6 +1,17 @@
 <template>
-  <div class="person-item" @click="personChange">
-    <input type="checkbox" :value="item" v-model="checkedPersonData" />
+  <div
+    v-bind:class="{
+      'person-item': !see,
+      'person-item-see': see
+    }"
+    @click="personChange"
+  >
+    <input
+      v-if="!see"
+      type="checkbox"
+      :value="item"
+      v-model="checkedPersonData"
+    />
     <img :src="item.avart" alt="" />
     <div class="item-space">
       <div class="first">
@@ -9,13 +20,20 @@
       </div>
       <div class="last">{{ item.department }}</div>
     </div>
+    <van-icon
+      v-if="see"
+      name="close"
+      @click="$emit('deletePerson')"
+      color="#1890ff"
+      size="16"
+    />
   </div>
 </template>
 
 <script>
 export default {
   name: 'person',
-  props: ['item', 'checkedNamesData'],
+  props: ['item', 'checkedNamesData', 'see'],
   computed: {
     checkedPersonData() {
       return this.checkedNamesData
@@ -23,7 +41,7 @@ export default {
   },
   methods: {
     personChange() {
-      this.$emit('personChange')
+      !this.see && this.$emit('personChange')
     }
   }
 }
@@ -31,7 +49,8 @@ export default {
 
 <style lang="less">
 @import '../../style/global.less';
-.person-item {
+.person-item,
+.person-item-see {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -71,6 +90,13 @@ export default {
       font-size: 12px;
       white-space: nowrap;
     }
+  }
+}
+.person-item-see {
+  justify-content: space-between;
+  padding-right: 36px;
+  .item-space {
+    flex: 1 1 auto;
   }
 }
 </style>

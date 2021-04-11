@@ -9,14 +9,19 @@
         {{ department ? splitSrings(department.name) : '' }}
       </div>
     </div>
+
     <div v-if="!isDepartment" class="breadcrumb">
       <div class="call">
         通讯录
       </div>
     </div>
+    <div class="all-select" @click="handleAllSelect">
+      <input type="checkbox" v-model="allChecked" />
+      <span>全选</span>
+    </div>
     <div
       class="content"
-      :style="{ height: isDepartment ? 'calc(100vh - 106px)' : '100vh' }"
+      :style="{ height: show ? 'calc(100vh - 208px)' : 'calc(100vh - 87px)' }"
     >
       <div
         v-for="(item, index) in treeDatas"
@@ -28,7 +33,7 @@
       >
         <list-item
           :item="item"
-          @goNextLevel="goNextLevel(item, index)"
+          @goNextLevel="goNextLevel(item)"
           @departmentChange="departmentChange(item)"
           @personChange="departmentChange(item)"
           :checkedNameArr="checkedNames"
@@ -68,20 +73,16 @@
     >
       <div class="personList">
         <div
-          v-for="(per, index) in checkedPersonData"
+          v-for="(per, index) in checkedNames"
           :key="index"
           class="personList-item"
         >
-          <div class="person-item personList-item">
-            <img :src="per.avart" alt="" />
-            <div class="item-space">
-              <div class="first">
-                <div>{{ per.name }}</div>
-                <div class="tag">{{ per.department }}</div>
-              </div>
-              <div class="last">{{ per.department }}</div>
-            </div>
-          </div>
+          <list-item
+            :item="per"
+            :see="true"
+            @deletePerson="deletePerson(per)"
+            :checkedNameArr="checkedNames"
+          />
         </div>
       </div>
     </van-popup>
@@ -122,6 +123,18 @@ export default {
     'list-item': listItem,
     'person-item': personItem
   },
+  watch: {
+    checkedNames(val, oldVal) {
+      let notExist = this.treeDatas.every(d => {
+        return this.checkedNames.includes(d)
+      })
+      if (notExist) {
+        this.allChecked = true
+      } else {
+        this.allChecked = false
+      }
+    }
+  },
   methods: {
     splitSrings(str) {
       return splitSring(str)
@@ -138,8 +151,7 @@ export default {
         this.checkedNames.push(item)
       }
     },
-    goNextLevel(item, index) {
-      console.log(item)
+    goNextLevel(item) {
       this.departmentTree.push(this.treeDatas)
       this.treeDatas = item.children
       this.department = item
@@ -156,11 +168,41 @@ export default {
         this.checkedNames.push(item)
       }
     },
+    deletePerson(per) {
+      const exist = this.checkedNames.includes(per)
+      if (exist) {
+        const Index = this.checkedNames.findIndex((val, index) => {
+          return val === per
+        })
+        this.checkedNames.splice(Index, 1)
+        if (this.checkedNames.length <= 0) {
+          this.show = false
+        }
+      }
+    },
     goTopLevel() {
       this.treeDatas = this.departmentTree.pop()
       if (this.departmentTree.length === 0) {
         this.department = {}
         this.isDepartment = false
+      }
+    },
+    handleAllSelect() {
+      this.allChecked = !this.allChecked
+      if (this.allChecked) {
+        this.treeDatas.forEach(tree => {
+          const exist = this.checkedNames.includes(tree)
+          if (!exist) {
+            this.checkedNames.push(tree)
+          }
+        })
+      } else {
+        this.treeDatas.forEach(tree => {
+          const Index = this.checkedNames.findIndex((val, index) => {
+            return val === tree
+          })
+          this.checkedNames.splice(Index, 1)
+        })
       }
     },
     openpopup() {
@@ -189,7 +231,17 @@ export default {
     padding: 42px 0 60px;
   }
 }
-
+.all-select {
+  height: 36px;
+  padding: 5px 20px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #fff;
+  > span {
+    margin-left: 10px;
+  }
+}
 .breadcrumb {
   position: relative;
   height: 36px;
@@ -251,14 +303,8 @@ export default {
   }
 }
 .personList {
-  width: calc(100% - 40px);
+  width: 100%;
   height: 100%;
-  padding: 0 20px;
   overflow: auto;
-  .personList-item {
-    .item-space {
-      flex: 1 1 auto;
-    }
-  }
 }
 </style>
