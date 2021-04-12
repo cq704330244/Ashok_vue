@@ -106,6 +106,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import mockInfo from './const'
 export default {
   name: '',
   data() {
@@ -119,11 +120,14 @@ export default {
   },
   computed: {
     ...mapState({
-      userInfo: state => state.login.userInfo
+      userInfo: state =>
+        sessionStorage.getItem('free') ? mockInfo : state.login.userInfo
     })
   },
   mounted() {
-    this.sessionUser = JSON.parse(sessionStorage.getItem('userInfo'))
+    this.sessionUser = sessionStorage.getItem('free')
+      ? mockInfo
+      : JSON.parse(sessionStorage.getItem('userInfo'))
     this.gergraphic = this.sessionUser.gergraphic
     this.provice = this.gergraphic.provice
     this.city = this.gergraphic.city
