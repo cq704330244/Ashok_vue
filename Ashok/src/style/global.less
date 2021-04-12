@@ -1,5 +1,28 @@
 @import './reset.less';
 @import './basecss.less';
+
 .el-form-item__label {
   color: @--b3;
+}
+.el-button:focus,
+.el-button:hover {
+  border-color: @bg-l;
+  color: @bg-l;
+  background-color: @bg-s;
+}
+.el-button--primary.is-plain {
+  border-color: @bg-l;
+  color: @bg-l;
+  background-color: @bg-s;
+}
+.el-button--primary.is-plain:focus,
+.el-button--primary.is-plain:hover {
+  border-color: @bg-l;
+  color: @bg-l;
+  color: #fff;
+  background: @bg-l;
+}
+.el-switch.is-checked .el-switch__core {
+  border-color: @bg-l;
+  background-color: @bg-l;
 }

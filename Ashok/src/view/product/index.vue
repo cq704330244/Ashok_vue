@@ -398,7 +398,6 @@ export default {
         this.dialogForm.prosition,
         this.dialogForm.arms
       ]
-      console.log(this.models)
       this.modify = true
       this.dialogStatus = 'update'
       this.dialogVisible = true

@@ -10,7 +10,12 @@
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
     <el-form-item label="密码：" prop="pass">
-      <el-input type="password" v-model="ruleForm.pass" autocomplete="off" show-password="true"></el-input>
+      <el-input
+        type="password"
+        v-model="ruleForm.pass"
+        autocomplete="off"
+        show-password="true"
+      ></el-input>
     </el-form-item>
     <el-form-item label="确认密码：" prop="checkPass">
       <el-input
@@ -22,7 +27,9 @@
     </el-form-item>
     <el-form-item>
       <el-button type="success" @click="submitForm('ruleForm')">注册</el-button>
-      <el-button type="success" plain @click="resetForm('ruleForm')">重置</el-button>
+      <el-button type="success" plain @click="resetForm('ruleForm')"
+        >重置</el-button
+      >
     </el-form-item>
   </el-form>
 </template>
@@ -78,11 +85,8 @@ export default {
             method: 'post',
             url: 'http://127.0.0.1:7001/sign',
             data: this.ruleForm
-          }).then(res => {
-            console.log(res)
-          })
+          }).then(res => {})
         } else {
-          console.log('error submit!!')
           return false
         }
       })

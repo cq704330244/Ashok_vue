@@ -56,7 +56,6 @@ export default {
         tooltip: {
           trigger: 'axis',
           formatter: function(params) {
-            console.log(params)
             var allLabel = ''
             params.map(item => {
               allLabel =

@@ -89,9 +89,9 @@ export default {
       color: #aaa;
     }
     .tag {
-      color: #08979c;
-      background: #e6fffb;
-      border: solid 1px #87e8de;
+      color: #71d358f5;
+      background-color: #f0ffec;
+      border: solid 1px #71d358f5;
       font-variant: tabular-nums;
       list-style: none;
       height: auto;

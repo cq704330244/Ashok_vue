@@ -1,6 +1,6 @@
 <template>
   <div class="as-upload-container">
-    <h1 class="tip">暂时只支持图片文件的上传</h1>
+    <h1 class="tip">图片上传</h1>
     <ul class="as-ul">
       <li
         v-for="(item, index) in imgList"

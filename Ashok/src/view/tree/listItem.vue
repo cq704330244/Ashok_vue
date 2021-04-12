@@ -51,7 +51,6 @@ export default {
       this.$emit('departmentChange')
     },
     clickDepartment() {
-      console.log('item')
       this.$emit('clickListItem')
     }
   }

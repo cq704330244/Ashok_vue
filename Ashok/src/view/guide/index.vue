@@ -1,8 +1,9 @@
 <template>
   <div>
-    Ashok后台管理：<el-button
+    <el-button
       type="primary"
       plain
+      class="guidebtn"
       id="guide"
       @click.prevent.stop="driverGuide"
       >介绍指导</el-button
@@ -37,3 +38,8 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.guidebtn {
+  margin: 20px;
+}
+</style>

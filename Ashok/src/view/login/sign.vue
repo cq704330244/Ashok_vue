@@ -22,6 +22,9 @@
         :show-password="bool"
       ></el-input>
     </el-form-item>
+    <el-form-item label="免api登录：">
+      <el-switch v-model="ruleForm.free"></el-switch>
+    </el-form-item>
     <el-form-item>
       <el-button
         type="success"
@@ -66,8 +69,9 @@ export default {
       bool: true,
       loginSign,
       ruleForm: {
-        name: '',
-        pass: ''
+        name: 'Cq704330244@163.com',
+        pass: 'Cq123456',
+        free: true
       },
       rules: {
         name: [
@@ -93,18 +97,23 @@ export default {
       const that = this
       this.$refs[formName].validate(valid => {
         if (valid) {
-          userLogin(this.ruleForm)
-            .then(res => {
-              that.storeUser(res.date)
-              sessionStorage.setItem('admin', true)
-              sessionStorage.setItem('userInfo', JSON.stringify(res.date))
-              this.$router.push({ path: '/home' })
-            })
-            .catch(err => {
-              this.$message.error(err.toString())
-            })
+          const { free } = this.ruleForm
+          if (free) {
+            sessionStorage.setItem('free', true)
+            this.$router.push({ path: '/home' })
+          } else {
+            userLogin(this.ruleForm)
+              .then(res => {
+                that.storeUser(res.date)
+                sessionStorage.setItem('admin', true)
+                sessionStorage.setItem('userInfo', JSON.stringify(res.date))
+                this.$router.push({ path: '/home' })
+              })
+              .catch(err => {
+                this.$message.error(err.toString())
+              })
+          }
         } else {
-          console.log('error submit!!')
           return false
         }
       })

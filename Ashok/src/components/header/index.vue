@@ -131,7 +131,6 @@ export default {
   methods: {
     showinformation() {
       this.showUser = true
-      console.log(this.sessionUser)
     }
   }
 }

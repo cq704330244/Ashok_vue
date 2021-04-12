@@ -1,6 +1,5 @@
 const routerPath = [
   {
-    path: '/path4',
     name: '新手引导',
     meta: {
       title: '新手引导',
@@ -19,10 +18,9 @@ const routerPath = [
     ]
   },
   {
-    path: '/path1',
-    name: '导航一',
+    name: '首页',
     meta: {
-      title: '导航一',
+      title: '首页',
       icon: 'el-icon-star-off'
     },
     component: '',
@@ -30,7 +28,7 @@ const routerPath = [
     children: [
       {
         path: '/home/deskTop',
-        name: 'deskTop',
+        name: '工作台',
         component: '',
         redirect: '',
         children: []
@@ -38,10 +36,9 @@ const routerPath = [
     ]
   },
   {
-    path: '/path2',
-    name: '导航二',
+    name: '工具',
     meta: {
-      title: '导航二',
+      title: '工具',
       icon: 'el-icon-date'
     },
     component: '',
@@ -49,7 +46,7 @@ const routerPath = [
     children: [
       {
         path: '/home/upLoad',
-        name: 'upLoad',
+        name: '上传',
         component: '',
         redirect: '',
         children: []
@@ -57,10 +54,9 @@ const routerPath = [
     ]
   },
   {
-    path: '/path3',
-    name: '导航三',
+    name: '产品中心',
     meta: {
-      title: '导航三',
+      title: '产品中心',
       icon: 'el-icon-sunny'
     },
     component: '',
@@ -68,13 +64,13 @@ const routerPath = [
     children: [
       {
         path: '/home/product',
-        name: 'product',
+        name: '产品列表',
         component: '',
         redirect: '',
         children: [
           {
-            path: '/path4',
-            name: '导航3-1-1',
+            path: '/home/tree',
+            name: '人员选择',
             component: '',
             redirect: '',
             children: []

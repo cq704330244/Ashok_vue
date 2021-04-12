@@ -15,12 +15,12 @@ export default new Router({
     {
       path: '/',
       name: 'Login',
-      component: Login
+      redirect: '/login'
     },
     {
-      path: '/tree',
-      name: 'Tree',
-      component: Tree
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
       path: '/home',
@@ -36,6 +36,11 @@ export default new Router({
           path: '/home/product',
           name: 'product',
           component: Product
+        },
+        {
+          path: '/home/tree',
+          name: 'tree',
+          component: Tree
         },
         {
           path: '/home/guide',

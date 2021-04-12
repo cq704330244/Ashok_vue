@@ -30,9 +30,14 @@ body {
       display: flex;
       flex-direction: row;
       .as-left {
+        border-right: solid 1px #e6e6e6;
         .as-el-menu {
           min-height: calc(100vh - 61px);
         }
+        .el-menu {
+          border-right: solid 1px transparent;
+        }
+
         .el-menu-item.is-active {
           color: #71d358f5;
           background-color: #f0ffec;

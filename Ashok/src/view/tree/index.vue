@@ -140,7 +140,6 @@ export default {
       return splitSring(str)
     },
     toggle(item) {
-      console.log('===========>', item)
       const exist = this.checkedNames.includes(item)
       if (exist) {
         const Index = this.checkedNames.findIndex((val, index) => {
@@ -226,7 +225,6 @@ export default {
 .tree {
   background: #f5f5f5;
   position: relative;
-  height: 100vh;
   .van-popup {
     padding: 42px 0 60px;
   }
@@ -274,16 +272,16 @@ export default {
   background: #fff;
   overflow-y: auto;
   padding-bottom: 60px;
+  position: relative;
 }
 .footer {
   background: #fff;
   position: fixed;
   bottom: 0;
-  left: 0;
   z-index: 3000;
   height: 50px;
   padding: 5px 20px;
-  width: calc(100% - 40px);
+  width: calc(100vw - 261px);
   border-top: solid 1px #eee;
   display: flex;
   justify-content: space-between;
